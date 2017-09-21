@@ -5,3 +5,4 @@ This repository will be expanded during the quarter and will hold the notebooks 
 the excercise notebooks, and the solutions to those excercises.
 
 Students are expected to fork this repository, and to commit their solutions to their private repository.
+...
