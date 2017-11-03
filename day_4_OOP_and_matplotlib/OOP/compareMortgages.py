@@ -1,8 +1,21 @@
-#!/Users/yoavfreund/anaconda/bin/python
+#!/usr/bin/env python
+
+### ADD ARGPARSE to the main.
 def findPayment(loan, r, m):
-    """Assumes: loan and r are floats, m an int
-       Returns the monthly payment for a mortgage of size
-       loan at a monthly rate of r for m months"""
+    """
+    Calculate the monthly payment for a morgage
+
+    Assumes: loan and r are floats, m an int
+    Returns the monthly payment for a mortgage of size
+    loan at a monthly rate of r for m months
+
+    :param loan: Size of Loan.
+    :param r: interest rate
+    :param m: length of loan in months
+    :returns: the monthly payment
+    :rtype: float
+
+    """
     return loan*((r*(1+r)**m)/((1+r)**m - 1))
     
 class Mortgage(object):
@@ -74,7 +87,24 @@ def compareMortgages(amt, years, fixedRate, pts, ptsRate,
         print ' Total payments = $' + str(int(m.getTotalPaid()))
 
 if __name__ == "__main__":
-## add use of argparse
-    compareMortgages(amt=200000, years=30, fixedRate=0.07,
-                 pts = 3.25, ptsRate=0.05, varRate1=0.045,
-                 varRate2=0.095, varMonths=48)
+
+    import argparse
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-a', '--amt',       type=int,    help='Amount of loan',          default=200000)
+    parser.add_argument('-y', '--years',     type=int,    help='Length of loan in years', default=30)
+    parser.add_argument('-f', '--fixedRate', type=float,  help='fixed rate',              default=0.07)
+    parser.add_argument('-p', '--pts',       type=float,  help='Points',                  default=3.25)
+    parser.add_argument('-P', '--ptsRate',   type=float,  help='fixed rate',              default=0.05)
+    parser.add_argument('-v', '--varRate1',  type=float,  help='fixed rate',              default=0.045)
+    parser.add_argument('-u', '--varRate2',  type=float,  help='fixed rate',              default=0.095)
+    parser.add_argument('-m', '--varMonths', type=int,    help='Length of variable rate mortgage in months',default=48)
+
+
+    params=vars(parser.parse_args())
+
+    print params
+
+    compareMortgages(**params)
+
